@@ -1,23 +1,9 @@
-import prompt from '@system.prompt';
 import image from '@ohos.multimedia.image';
+import CircleImageModel from "./CircleImageModel"
 
 @Component
 export struct CircularImage {
-  @Link imageWidth: number
-  @Link imageHeight: number
-  @State imageRadius: number = -1
-  @Prop needBorder: boolean
-  @State borderWidth: number = 5
-  @State borderColor: string = '#FF00FF'
-  @Link imageSource: string
-  @State marginLeft: number = 0
-  @State marginRight: number = 0
-  @State marginTop: number = 0
-  @State marginBottom: number = 0
-  @State paddingTop: number = 0
-  @State paddingBottom: number = 0
-  @State paddingLeft: number = 0
-  @State paddingRight: number = 0
+  @State model: CircleImageModel.Model = new CircleImageModel.Model();
   private settings: RenderingContextSettings = new RenderingContextSettings(true)
   private context: CanvasRenderingContext2D = new CanvasRenderingContext2D(this.settings)
   private img: ImageBitmap
@@ -25,88 +11,102 @@ export struct CircularImage {
 
   build() {
     Canvas(this.context)
-      .width(this.imageWidth)
-      .height(this.imageHeight)
+      .width(this.model.imageWidth)
+      .height(this.model.imageHeight)
       .onReady(() => {
-        this.img = new ImageBitmap(this.imageSource)
+        if (this.model.srcPath !== undefined) {
+          this.img = new ImageBitmap(this.model.srcPath)
 
-        var imageSourceApi = image.createImageSource(this.imageSource);
+          var imageSourceApi = image.createImageSource(this.model.srcPath);
 
-        imageSourceApi.getImageInfo().then(info => {
-          var imgWidth = info.size.width;
-          var imgHeight = info.size.height;
-          console.info("Succeeded in obtaining the image info: " + imgWidth + " " + imgHeight);
+          imageSourceApi.getImageInfo().then(info => {
+            var imgWidth = info.size.width;
+            var imgHeight = info.size.height;
+            console.info("Succeeded in obtaining the image info: " + imgWidth + " " + imgHeight);
 
-          console.info('Image details: ' + imgWidth + " " + imgHeight);
-          var imageAspectRatio = imgWidth / imgHeight;
-          var canvasAspectRatio = this.imageWidth / this.imageHeight;
-          var renderableHeight, renderableWidth, xStart, yStart;
-          console.info('aspect radio: ' + imageAspectRatio + " " + canvasAspectRatio);
+            console.info('Image details: ' + imgWidth + " " + imgHeight);
+            var imageAspectRatio = imgWidth / imgHeight;
+            var canvasAspectRatio = this.model.imageWidth / this.model.imageHeight;
+            var renderableHeight, renderableWidth, xStart, yStart;
+            console.info('aspect ratio: ' + imageAspectRatio + " " + canvasAspectRatio);
 
-          // If image's aspect ratio is less than canvas's we fit on height
-          // and place the image centrally along width
-          if (imageAspectRatio < canvasAspectRatio) {
-            console.info("High canvasAspectRatio ");
-            renderableHeight = this.imageHeight;
-            renderableWidth = imgWidth * (renderableHeight / imgHeight);
-            xStart = (this.imageWidth - renderableWidth) / 2;
-            yStart = 0;
-          }
+            // If image's aspect ratio is less than canvas's we fit on height
+            // and place the image centrally along width
+            if (imageAspectRatio < canvasAspectRatio) {
+              console.info("High canvasAspectRatio ");
+              renderableHeight = this.model.imageHeight;
+              renderableWidth = imgWidth * (renderableHeight / imgHeight);
+              xStart = (this.model.imageWidth - renderableWidth) / 2;
+              yStart = 0;
+            }
 
-          // If image's aspect ratio is greater than canvas's we fit on width
-          // and place the image centrally along height
-          else if (imageAspectRatio > canvasAspectRatio) {
-            console.info("High imageAspectRatio ");
-            renderableWidth = this.imageWidth
-            renderableHeight = imgHeight * (renderableWidth / imgWidth);
-            xStart = 0;
-            yStart = (this.imageHeight - renderableHeight) / 2;
-          }
+            // If image's aspect ratio is greater than canvas's we fit on width
+            // and place the image centrally along height
+            else if (imageAspectRatio > canvasAspectRatio) {
+              console.info("High imageAspectRatio ");
+              renderableWidth = this.model.imageWidth
+              renderableHeight = imgHeight * (renderableWidth / imgWidth);
+              xStart = 0;
+              yStart = (this.model.imageHeight - renderableHeight) / 2;
+            }
 
-          // Keep aspect ratio
-          else {
-            console.info("keep aspect ratio ");
-            renderableHeight = this.imageHeight;
-            renderableWidth = this.imageWidth;
-            xStart = 0;
-            yStart = 0;
-          }
-          console.info("Values " + xStart + " " + yStart + " " + renderableWidth + " " + renderableHeight);
+            // Keep aspect ratio
+            else {
+              console.info("keep aspect ratio ");
+              renderableHeight = this.model.imageHeight;
+              renderableWidth = this.model.imageWidth;
+              xStart = 0;
+              yStart = 0;
+            }
+            console.info("Values " + xStart + " " + yStart + " " + renderableWidth + " " + renderableHeight);
 
-          this.context.imageSmoothingEnabled = false
-          // var r = { x: 0, y: 0, w: this.imageWidth, h: this.imageHeight, r: 0.4 * size };
-          var r = {
-            x: xStart,
-            y: yStart,
-            w: renderableWidth,
-            h: renderableHeight,
-            r: 0
-          };
-          const size = Math.min(r.w, r.h)
-          if (this.imageRadius != -1) {
-            r.r = this.imageRadius;
-          } else {
-            r.r = 0.4 * size
-          }
-          this.context.save();
-          this.context.beginPath();
-          this.context.arc(size / 2, size / 2, r.r, 0, 2 * Math.PI);
-          if (this.needBorder) {
-            this.context.lineWidth = this.borderWidth;
-            this.context.strokeStyle = this.borderColor;
-            this.context.stroke();
-          }
+            this.context.imageSmoothingEnabled = false
+            // var r = { x: 0, y: 0, w: this.model.imageWidth, h: this.model.imageHeight, r: 0.4 * size };
+            var r = {
+              x: xStart,
+              y: yStart,
+              w: renderableWidth,
+              h: renderableHeight,
+              r: 0
+            };
+            const size = Math.min(r.w, r.h)
+            if (this.model.imageRadius != -1) {
+              r.r = this.model.imageRadius;
+            } else {
+              r.r = 0.4 * size
+            }
+            this.context.save();
+            this.context.beginPath();
+            this.context.arc(size / 2, size / 2, r.r, 0, 2 * Math.PI);
+            if (this.model.needBorder) {
+              this.context.lineWidth = this.model.borderWidth;
+              this.context.strokeStyle = this.model.borderColor;
+              this.context.stroke();
+            }
 
-          this.context.closePath();
-          this.context.clip();
-          this.context.drawImage(this.img, r.x, r.y, r.w, r.h);
-          this.context.restore();
-        }).catch(e => {
-          console.info("Error in obtaining the image info: " + e);
-        })
+            this.context.closePath();
+            this.context.clip();
+            this.context.drawImage(this.img, r.x, r.y, r.w, r.h);
+            this.context.restore();
+          }).catch(e => {
+            console.info("Error in obtaining the image info: " + e);
+          })
+        }
       })
       .onClick(() => this.onClick())
-      .margin({ top: this.marginTop, bottom: this.marginBottom, left: this.marginLeft, right: this.marginRight })
-      .padding({ top: this.paddingTop, bottom: this.paddingBottom, left: this.paddingLeft, right: this.paddingRight })
+      .margin({
+        top: this.model.marginTop,
+        bottom: this.model.marginBottom,
+        left: this.model.marginLeft,
+        right: this.model.marginRight
+      })
+      .padding({
+        top: this.model.paddingTop,
+        bottom: this.model.paddingBottom,
+        left: this.model.paddingLeft,
+        right: this.model.paddingRight
+      })
   }
 }
+
+export { CircleImageModel } from "./CircleImageModel";
