@@ -32,15 +32,61 @@ CircularImage({
 4. Call the corresponding function of Model and display the target image
 
  updateModelForFirst() {
+
     this.model.reset()
+
     this.model.setSrcPath(this.imageSource)
+
     this.model.setImageWidth(this.imageWidth)
+
     this.model.setImageHeight(this.imageHeight)
+
     this.model.setImageRadius(50)
+
     this.model.setNeedBorder(true)
+
     this.model.setBorderWidth(5)
+
     this.model.setBorderColor('#0000FF')
+
   }
+
+5.Interface Description 
+
+model: CircleImageModel.Model = new CircleImageModel.Model();
+
+Reset: model.reset()
+
+Set Image source path:  model.setSrcPath()
+
+Set Image width: model.setImageWidth()
+
+Set Image height: model.setImageHeight()
+
+Set Image radius: model.setImageRadius()
+
+Whether a border is required: model.setNeedBorder()
+
+Set border width: model.setBorderWidth()
+
+Set border color: model.setBorderColor()
+
+Set the click event: model.setClickListener()
+
+Directory Structure
+
+|---- ImageCircle
+|     |---- libcircularimage  #circle image library
+|           |---- src
+|                 |---- clickListener.ets
+|                 |---- CircleImageModel.ets
+|                 |---- circleImage.ets
+|     |---- entry  #Sample Code Folder
+|           |---- src
+|                 |---- main
+|                       |---- MainAbility
+|                             |---- pages 
+|                                   |---- index.ets  
 
 Compatibility
 
