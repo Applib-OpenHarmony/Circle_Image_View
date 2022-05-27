@@ -1,4 +1,4 @@
-import { CircularImage, CircleImageModel } from '@ohos/libcircularimage'
+import { CircularImage, CircleImageModel, ClickListener } from '@ohos/libcircularimage'
 import prompt from '@system.prompt';
 
 @Entry
@@ -37,6 +37,14 @@ struct Index {
     this.model.setNeedBorder(true)
     this.model.setBorderWidth(5)
     this.model.setBorderColor('#0000FF')
+    this.model.setClickListener({
+      onClick() {
+        console.info('onClick event reached app')
+        prompt.showToast({
+          message: 'Circle Image is clicked'
+        })
+      }
+    })
   }
 
   updateModelForSecond() {
@@ -86,6 +94,14 @@ struct Index {
     this.model_fifth.setBorderWidth(8)
     this.model_fifth.setBorderColor('#AD8AFE')
     this.model_fifth.setPaddingBottom(5)
+    this.model_fifth.setClickListener({
+      onClick() {
+        console.info('onClick event reached app')
+        prompt.showToast({
+          message: 'Circle Image is clicked'
+        })
+      }
+    })
   }
 
   updateModelForSixth() {
@@ -111,12 +127,7 @@ struct Index {
             .fontColor(Color.Pink)
 
           CircularImage({
-            model: this.model,
-            onClick: () => {
-              prompt.showToast({
-                message: 'Circular Image is clicked'
-              })
-            }
+            model: this.model
           })
           CircularImage({
             model: this.model_second,
@@ -143,12 +154,7 @@ struct Index {
             }
           })
           CircularImage({
-            model: this.model_fifth,
-            onClick: () => {
-              prompt.showToast({
-                message: 'Circular Image is clicked'
-              })
-            }
+            model: this.model_fifth
           })
           CircularImage({
             model: this.model_sixth,
