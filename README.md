@@ -12,7 +12,7 @@ Instructions for Use:
 
 1. Import files and code dependencies
 
-import {CircularImage} from '@ohos/libcirclularimage'
+import {CircularImage, CircleImageModel, ClickListener} from '@ohos/libcirclularimage'
 
 2. Initialize Model Data
 
