@@ -1,0 +1,14 @@
+{
+  "name": "@ohos/libcircularimage",
+  "version": "1.0.0",
+  "description": "A npm package with circle image library",
+  "ohos": {
+    "org": ""
+  },
+  "main": "src/circleImage.ets",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Muskan",
+  "license": "ISC"
+}
