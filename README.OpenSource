@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "circle-image-view",
+        "License": "Apache-2.0 License",
+        "License File": " LICENSE ",
+        "Version Number": "3.3.0",
+        "Owner" : "afollestad"
+        "Upstream URL": "https://github.com/afollestad/CircleImage",
+        "Description": "A library for making images circular for profile pictures."
+    }
+]
