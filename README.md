@@ -8,7 +8,7 @@ This library is developed to provide circle image implemented using extended typ
 
 `npm install @ohos/libcircularimage --save`
 
-For more information on OpenHarmony npm environment configuration, please refer to How to install OpenHarmony npm package .
+Details about OpenHarmony NPM environment configuration, click [here](https://gitee.com/openharmony-tpc/docs/blob/master/OpenHarmony_npm_usage.md).
 
 <hr/>
 
