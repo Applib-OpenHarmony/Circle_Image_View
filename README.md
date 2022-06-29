@@ -1,25 +1,30 @@
-Circle Image
+## Circle Image:
 
 This library is developed to provide circle image implemented using extended typescript.
 
-Download and Install
+<hr/>
 
-npm install @ohos/libcircularimage --save
+**Download and Install:**
+
+`npm install @ohos/libcircularimage --save`
 
 For more information on OpenHarmony npm environment configuration, please refer to How to install OpenHarmony npm package .
 
-Instructions for Use:
+<hr/>
 
-1. Import files and code dependencies
+**Instructions for Use:**
 
-import {CircularImage, CircleImageModel, ClickListener} from '@ohos/libcirclularimage'
+*1. Import files and code dependencies*
 
-2. Initialize Model Data
+`import {CircularImage, CircleImageModel, ClickListener} from '@ohos/libcirclularimage'`
 
-model: CircleImageModel.Model = new CircleImageModel.Model();
+*2. Initialize Model Data*
 
-3. Initialize the Circular Image
+`model: CircleImageModel.Model = new CircleImageModel.Model();`
 
+*3. Initialize the Circular Image*
+
+```
 CircularImage({
     model: this.model,
     onClick: () => {
@@ -28,74 +33,79 @@ CircularImage({
          })
     }
 })
+```
 
-4. Call the corresponding function of Model and display the target image
+*4. Call the corresponding function of Model and display the target image*
 
- updateModelForFirst() {
-
+```
+updateModelForFirst() {
     this.model.reset()
-
     this.model.setSrcPath(this.imageSource)
-
     this.model.setImageWidth(this.imageWidth)
-
     this.model.setImageHeight(this.imageHeight)
-
     this.model.setImageRadius(50)
-
     this.model.setNeedBorder(true)
-
     this.model.setBorderWidth(5)
-
     this.model.setBorderColor('#0000FF')
+}
+```
 
-  }
+*5. Interface Description*
 
-5.Interface Description 
-
+```
 model: CircleImageModel.Model = new CircleImageModel.Model();
 
 Reset: model.reset()
+```
 
-Set Image source path:  model.setSrcPath()
+Set Image source path:  `model.setSrcPath()`
 
-Set Image width: model.setImageWidth()
+Set Image width: `model.setImageWidth()`
 
-Set Image height: model.setImageHeight()
+Set Image height: `model.setImageHeight()`
 
-Set Image radius: model.setImageRadius()
+Set Image radius: `model.setImageRadius()`
 
-Whether a border is required: model.setNeedBorder()
+Whether a border is required: `model.setNeedBorder()`
 
-Set border width: model.setBorderWidth()
+Set border width: `model.setBorderWidth()`
 
-Set border color: model.setBorderColor()
+Set border color: `model.setBorderColor()`
 
-Set the click event: model.setClickListener()
+Set the click event: `model.setClickListener()`
 
-Directory Structure
+<hr/>
 
+**Directory Structure:**
+
+```
 |---- ImageCircle
-|     |---- libcircularimage  #circle image library
-|           |---- src
-|                 |---- clickListener.ets
-|                 |---- CircleImageModel.ets
-|                 |---- circleImage.ets
-|     |---- entry  #Sample Code Folder
-|           |---- src
-|                 |---- main
-|                       |---- MainAbility
-|                             |---- pages 
-|                                   |---- index.ets  
+      |---- libcircularimage  #circle image library
+            |---- src
+                  |---- clickListener.ets
+                  |---- CircleImageModel.ets
+                  |---- circleImage.ets
+      |---- entry  #Sample Code Folder
+            |---- src
+                  |---- main
+                        |---- MainAbility
+                              |---- pages 
+                                    |---- index.ets  
+```
+<hr/>
 
-Compatibility
+**Compatibility:**
 
 Supports OpenHarmony API version 8 and above.
 
-Code Contribution
+<hr/>
 
-If you find any problems during usage, you can submit an Issue to us. Of course, we also welcome you to send us PR. Please enjoy and participate in open source freely.
+**Code Contribution:**
 
-Open Source Protocol
+If you find any problems during usage, you can submit an [Issue](https://github.com/Applib-OpenHarmony/CircleImage/issues) to us. Of course, we also welcome you to send us [PR](https://github.com/Applib-OpenHarmony/CircleImage/pulls). Please enjoy and participate in open source freely.
+
+<hr/>
+
+**Open Source Protocol:**
 
 This project is based on Apache License 2.0 , please enjoy and participate in open source freely.
